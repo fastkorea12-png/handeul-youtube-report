@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>한들교회 쇼츠 석 달</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: one narrow column read top to bottom like a church bulletin — big numbers, one picture, top 3, three requests */
+:root {
+  --paper: #F7F4EC;
+  --paper-raised: #EFE9D8;
+  --ink: #17233F;
+  --ink-soft: #5C6478;
+  --line: #DCD3BE;
+  --accent: #00704A;
+  --accent-soft: #DCEBE2;
+  --muted-bar: #C9C2AE;
+  --font-display: 'Do Hyeon', 'Noto Sans KR', sans-serif;
+  --font-body: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12161F; --paper-raised: #1B2130; --ink: #ECE8DC; --ink-soft: #A7AEC1;
+    --line: #2B3244; --accent: #8FB07E; --accent-soft: #24312A; --muted-bar: #3A4256;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12161F; --paper-raised: #1B2130; --ink: #ECE8DC; --ink-soft: #A7AEC1;
+  --line: #2B3244; --accent: #8FB07E; --accent-soft: #24312A; --muted-bar: #3A4256;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.65;
+  padding: 0 20px;
+}
+main { max-width: 680px; margin: 0 auto; padding-block: 48px 64px; display: grid; gap: 48px; }
+h1, h2 { font-family: var(--font-display); font-weight: 400; text-wrap: balance; margin: 0; line-height: 1.2; }
+p { margin: 0; }
+.eyebrow { font-size: 14px; color: var(--ink-soft); letter-spacing: .04em; }
+header { display: grid; gap: 12px; }
+header h1 { font-size: clamp(34px, 7vw, 48px); }
+header h1 em { font-style: normal; color: var(--accent); }
+.lead { font-size: 19px; color: var(--ink); }
+
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.stat { background: var(--paper-raised); border-radius: 14px; padding: 18px 16px; display: grid; gap: 4px; align-content: start; }
+.stat b { font-family: var(--font-display); font-weight: 400; font-size: clamp(32px, 7vw, 44px); line-height: 1.05; color: var(--accent); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 15px; color: var(--ink-soft); line-height: 1.4; }
+@media (max-width: 520px) { .stats { grid-template-columns: 1fr; } .stat { grid-template-columns: auto 1fr; align-items: baseline; gap: 12px; } }
+
+section { display: grid; gap: 16px; }
+section h2 { font-size: 28px; }
+.note { font-size: 15px; color: var(--ink-soft); }
+
+.chart { width: 100%; height: auto; display: block; }
+.chart text { font-family: var(--font-body); }
+
+.subs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.sub { border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 2px; align-content: start; }
+.sub.hi { border-color: var(--accent); background: var(--accent-soft); }
+.sub .when { font-size: 15px; color: var(--ink-soft); line-height: 1.35; }
+.sub .when small { font-size: 13px; }
+.sub b { font-family: var(--font-display); font-weight: 400; font-size: 34px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.sub.hi b { color: var(--accent); }
+.sub .why { font-size: 13px; color: var(--ink-soft); }
+@media (max-width: 520px) { .subs { grid-template-columns: 1fr; } }
+
+.compare { display: grid; gap: 14px; }
+.row { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 12px; align-items: center; }
+.row .label { font-size: 15px; color: var(--ink-soft); line-height: 1.35; }
+.track { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.bar { height: 30px; border-radius: 6px; flex: none; }
+.bar.short { background: var(--accent); width: 100%; max-width: calc(100% - 4.5em); }
+.bar.long { background: var(--muted-bar); width: 4%; min-width: 8px; }
+.track b { font-family: var(--font-display); font-weight: 400; font-size: 24px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.top { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.top li { display: grid; grid-template-columns: 2.2em minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 16px; border-radius: 12px; background: var(--paper-raised); }
+.top .rank { font-family: var(--font-display); font-size: 26px; color: var(--accent); }
+.top .title { font-weight: 500; line-height: 1.4; }
+.top .date { display: block; font-size: 14px; color: var(--ink-soft); font-weight: 400; }
+.top .views { font-family: var(--font-display); font-size: 24px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.top .views small { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-left: 2px; }
+
+.asks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: ask; }
+.asks li { display: grid; grid-template-columns: 2em minmax(0, 1fr); gap: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+.asks li:last-child { border-bottom: 0; padding-bottom: 0; }
+.asks li::before { counter-increment: ask; content: counter(ask); font-family: var(--font-display); font-size: 24px; color: var(--accent); line-height: 1.3; }
+.asks strong { display: block; font-weight: 700; }
+.asks span { color: var(--ink-soft); font-size: 15px; }
+
+.detail { gap: 14px; border-top: 2px solid var(--ink); padding-top: 28px; }
+.detail h3 { font-size: 18px; margin: 18px 0 0; font-weight: 700; }
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 12px; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tbody tr:last-child td { border-bottom: 0; }
+th { font-weight: 500; font-size: 13px; color: var(--ink-soft); background: var(--paper-raised); }
+td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+td.d { color: var(--ink-soft); font-variant-numeric: tabular-nums; white-space: nowrap; width: 3.5em; }
+td.t { line-height: 1.45; min-width: 12em; }
+.sub-d { display: block; font-size: 13px; color: var(--ink-soft); }
+td.down { color: var(--ink-soft); }
+td.up { color: var(--accent); font-weight: 700; }
+table.all td.n { position: relative; width: 7.5em; }
+.mini { position: absolute; right: 12px; bottom: 6px; height: 3px; border-radius: 2px; background: var(--muted-bar); max-width: 5.5em; }
+table.all tr.hot td.n { color: var(--accent); font-weight: 700; }
+table.all tr.hot .mini { background: var(--accent); }
+
+footer { font-size: 14px; color: var(--ink-soft); border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 4px; }
+</style>
+
+</head>
+<body>
+<main>
+  <header>
+    <p class="eyebrow">한들교회 유튜브 · 2026년 7월 14일 ~ 10월 15일</p>
+    <h1>쇼츠 석 달, <em>3만 2천 번</em> 말씀이 전해졌습니다</h1>
+    <p class="lead">7월 중순부터 주일 설교의 한 장면을 1분 안쪽 짧은 영상(쇼츠)으로 만들어 올리고 있습니다. 석 달 동안 올린 35편을 합쳐 3만 2천 번 넘게 재생됐습니다.</p>
+  </header>
+
+  <div class="stats" aria-label="핵심 숫자">
+    <div class="stat"><b>35편</b><span>올린 쇼츠</span></div>
+    <div class="stat"><b>32,293</b><span>재생된 횟수</span></div>
+    <div class="stat"><b>18편</b><span>1,000번 넘게 본 쇼츠</span></div>
+  </div>
+
+  <section aria-labelledby="h-month">
+    <h2 id="h-month">달마다 이만큼 봤습니다</h2>
+    <svg class="chart" viewBox="0 0 640 300" role="img" aria-label="월별 쇼츠 조회수: 7월 11,042, 8월 11,099, 9월 3,764, 10월 15일까지 6,388">
+      <line x1="40" x2="620" y1="240" y2="240" stroke="var(--line)" stroke-width="1.5"/>
+      <!-- scale: 11,099 views = 180px -->
+      <g>
+        <rect x="70" y="60.9" width="96" height="179.1" rx="6" fill="var(--accent)"/>
+        <text x="118" y="48" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)">11,042</text>
+        <text x="118" y="268" text-anchor="middle" font-size="16" fill="var(--ink)">7월</text>
+        <text x="118" y="290" text-anchor="middle" font-size="13" fill="var(--ink-soft)">9편 · 14일부터</text>
+      </g>
+      <g>
+        <rect x="210" y="60" width="96" height="180" rx="6" fill="var(--accent)"/>
+        <text x="258" y="48" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)">11,099</text>
+        <text x="258" y="268" text-anchor="middle" font-size="16" fill="var(--ink)">8월</text>
+        <text x="258" y="290" text-anchor="middle" font-size="13" fill="var(--ink-soft)">15편</text>
+      </g>
+      <g>
+        <rect x="350" y="179" width="96" height="61" rx="6" fill="var(--muted-bar)"/>
+        <text x="398" y="166" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)">3,764</text>
+        <text x="398" y="268" text-anchor="middle" font-size="16" fill="var(--ink)">9월</text>
+        <text x="398" y="290" text-anchor="middle" font-size="13" fill="var(--ink-soft)">4편 · 예배당 이전</text>
+      </g>
+      <g>
+        <rect x="490" y="136.4" width="96" height="103.6" rx="6" fill="var(--accent)" fill-opacity="0.55"/>
+        <text x="538" y="123" text-anchor="middle" font-size="22" font-weight="700" fill="var(--ink)">6,388</text>
+        <text x="538" y="268" text-anchor="middle" font-size="16" fill="var(--ink)">10월</text>
+        <text x="538" y="290" text-anchor="middle" font-size="13" fill="var(--ink-soft)">7편 · 15일까지</text>
+      </g>
+    </svg>
+    <p>9월은 예배당 이전으로 쇼츠를 4편밖에 올리지 못해 잠시 줄었습니다. 10월은 화·목·토 주 3회로 다시 올리고 있어, 보름 만에 9월 한 달보다 많이 봤습니다.</p>
+  </section>
+
+  <section aria-labelledby="h-sub">
+    <h2 id="h-sub">구독자는 지금 136명입니다</h2>
+    <div class="subs">
+      <div class="sub"><span class="when">8월</span><b>+4명</b></div>
+      <div class="sub"><span class="when">9월</span><b>+1명</b><span class="why">예배당 이전</span></div>
+      <div class="sub hi"><span class="when">최근 4주<br><small>9/17~10/14</small></span><b>+6명</b><span class="why">쇼츠 주 3회</span></div>
+    </div>
+    <p>쇼츠를 화·목·토 주 3회로 올리기 시작한 뒤 4주 동안 6명이 새로 구독했습니다. 그 전 4주보다 3배 많습니다.</p>
+  </section>
+
+  <section aria-labelledby="h-reach">
+    <h2 id="h-reach">쇼츠 한 편이 설교 영상보다 15배 넘게 닿습니다</h2>
+    <div class="compare">
+      <div class="row">
+        <span class="label">쇼츠 한 편</span>
+        <div class="track"><div class="bar short" role="presentation"></div><b>약 920명</b></div>
+      </div>
+      <div class="row">
+        <span class="label">주일예배·설교 영상 한 편</span>
+        <div class="track"><div class="bar long" role="presentation"></div><b>30~60명</b></div>
+      </div>
+    </div>
+    <p>설교 전체 영상은 매주 올리고 있고, 주로 교인분들이 찾아서 봅니다. 쇼츠는 유튜브가 교회를 모르는 사람에게도 보여 주기 때문에, 처음 만나는 사람에게 말씀이 닿는 통로가 됩니다.</p>
+    <p class="note">쇼츠는 35편 평균, 설교·예배 영상은 9월에 올린 영상 기준입니다.</p>
+  </section>
+
+  <section aria-labelledby="h-top">
+    <h2 id="h-top">가장 많이 본 쇼츠</h2>
+    <ol class="top">
+      <li><span class="rank">1</span><span class="title">구약의 하나님은 무섭고 신약은 사랑의 하나님?<span class="date">8월 18일</span></span><span class="views">2,055<small>번</small></span></li>
+      <li><span class="rank">2</span><span class="title">구원받기 쉽다고? 예수님 대답은 다릅니다<span class="date">7월 22일</span></span><span class="views">2,040<small>번</small></span></li>
+      <li><span class="rank">3</span><span class="title">하나님을 안 좋아하면 모든 선행은 말짱 도루묵<span class="date">8월 3일</span></span><span class="views">2,014<small>번</small></span></li>
+    </ol>
+    <p>1·2위는 사람들이 평소에 궁금해하던 질문으로 시작합니다.</p>
+  </section>
+
+  <section aria-labelledby="h-ask">
+    <h2 id="h-ask">앞으로 이렇게 하겠습니다</h2>
+    <ol class="asks">
+      <li><div><strong>화·목·토 주 3회를 꾸준히 지킵니다</strong><span>쇼츠를 15편 올린 8월에 가장 많이 봤고, 4편뿐이던 9월에 크게 줄었습니다. 주 3회로 돌아온 10월부터 구독자가 다시 늘고 있습니다.</span></div></li>
+      <li><div><strong>사람들이 궁금해하는 질문으로 시작합니다</strong><span>가장 많이 본 1·2위가 모두 질문으로 시작했습니다. 제목과 첫 장면을 "구원받기 쉽다고?"처럼 질문으로 엽니다.</span></div></li>
+      <li><div><strong>쇼츠에서 설교 전체로 이어지게 합니다</strong><span>쇼츠는 한 편에 약 920명이 보지만 설교 전체 영상은 30~60명입니다. 모든 쇼츠에 그 주 설교 영상을 연결해 처음 만난 사람이 설교까지 듣게 합니다.</span></div></li>
+      <li><div><strong>끝까지 보게 만듭니다</strong><span>평생 교회 다닌 교수 이야기는 시청자가 평균 87%까지 봤고, 1,296번 재생됐습니다. 가장 강한 문장을 첫 3초에 두고, 늘어지는 부분은 잘라 1분 안쪽으로 만듭니다.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="detail" aria-labelledby="h-detail">
+    <p class="eyebrow">세부 자료</p>
+    <h2 id="h-detail">숫자로 자세히 보기</h2>
+
+    <h3>채널 전체 · 8월과 9월</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>항목</th><th class="n">8월</th><th class="n">9월</th><th class="n">변화</th></tr></thead>
+      <tbody>
+        <tr><td>재생 횟수</td><td class="n">9,767</td><td class="n">5,547</td><td class="n down">−43%</td></tr>
+        <tr><td>시청 시간</td><td class="n">45.4시간</td><td class="n">30.2시간</td><td class="n down">−33%</td></tr>
+        <tr><td>새 구독자</td><td class="n">+4명</td><td class="n">+1명</td><td class="n down">−3명</td></tr>
+        <tr><td>목록에 영상이 뜬 횟수</td><td class="n">5,498</td><td class="n">4,714</td><td class="n down">−14%</td></tr>
+        <tr><td>뜬 영상을 눌러 본 비율</td><td class="n">3.4%</td><td class="n">4.4%</td><td class="n up">+1.0%p</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">9월은 예배당 이전으로 8월 30일·9월 6일 예배를 송출하지 못했고, 쇼츠도 4편만 올렸습니다.</p>
+
+    <h3>끝까지 본 비율 · 최근 쇼츠</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>쇼츠</th><th class="n">평균 본 비율</th><th class="n">재생</th></tr></thead>
+      <tbody>
+          <tr><td class="t">평생 교회 다닌 교수를 무너뜨린 한 구절<span class="sub-d">10.8</span></td><td class="n">86.9%</td><td class="n">1,296</td></tr>
+          <tr><td class="t">교회 20년 다녀도 변화가 없다면<span class="sub-d">10.10</span></td><td class="n">62.2%</td><td class="n">1,237</td></tr>
+          <tr><td class="t">왜 똑똑한 사람 대신 연약한 자를 쓰실까?<span class="sub-d">9.19</span></td><td class="n">58.1%</td><td class="n">1,242</td></tr>
+          <tr><td class="t">열불 나게 하는 '그 인간'도 나를 향한 부르심입니다<span class="sub-d">10.3</span></td><td class="n">55.4%</td><td class="n">1,218</td></tr>
+          <tr><td class="t">하나님 나라에도 112가 있습니다<span class="sub-d">10.6</span></td><td class="n">50.6%</td><td class="n">352</td></tr>
+          <tr><td class="t">나를 증명하려 애쓰는 세상, 죽어짐으로 이기는 역설<span class="sub-d">10.1</span></td><td class="n">48.7%</td><td class="n">1,274</td></tr>
+          <tr><td class="t">70% 세일과 믿음의 공통점<span class="sub-d">10.15</span></td><td class="n">46.7%</td><td class="n">440</td></tr>
+          <tr><td class="t">하나님 나라가 가까이 왔다면?<span class="sub-d">10.13</span></td><td class="n">35.6%</td><td class="n">571</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">9월 17일~10월 14일 기간의 평균 시청 비율입니다. 70% 세일 편은 올린 뒤 첫 20시간 기준입니다.</p>
+
+    <h3>쇼츠 35편 전체</h3>
+    <div class="tbl"><table class="all">
+      <thead><tr><th>날짜</th><th>제목</th><th class="n">재생</th></tr></thead>
+      <tbody>
+          <tr><td class="d">10.15</td><td class="t">70% 세일과 믿음의 공통점</td><td class="n"><span class="mini" style="width:21%"></span>440</td></tr>
+          <tr><td class="d">10.13</td><td class="t">하나님 나라가 가까이 왔다면?</td><td class="n"><span class="mini" style="width:28%"></span>571</td></tr>
+          <tr class="hot"><td class="d">10.10</td><td class="t">교회 20년 다녀도 변화가 없다면</td><td class="n"><span class="mini" style="width:60%"></span>1,237</td></tr>
+          <tr class="hot"><td class="d">10.8</td><td class="t">평생 교회 다닌 교수를 무너뜨린 한 구절</td><td class="n"><span class="mini" style="width:63%"></span>1,296</td></tr>
+          <tr><td class="d">10.6</td><td class="t">하나님 나라에도 112가 있습니다</td><td class="n"><span class="mini" style="width:17%"></span>352</td></tr>
+          <tr class="hot"><td class="d">10.3</td><td class="t">열불 나게 하는 '그 인간'도 나를 향한 부르심입니다</td><td class="n"><span class="mini" style="width:59%"></span>1,218</td></tr>
+          <tr class="hot"><td class="d">10.1</td><td class="t">나를 증명하려 애쓰는 세상, 죽어짐으로 이기는 역설</td><td class="n"><span class="mini" style="width:62%"></span>1,274</td></tr>
+          <tr><td class="d">9.29</td><td class="t">내 안에 사랑이 머물게 만드는 단 하나의 비결</td><td class="n"><span class="mini" style="width:2%"></span>45</td></tr>
+          <tr class="hot"><td class="d">9.19</td><td class="t">왜 똑똑한 사람 대신 연약한 자를 쓰실까?</td><td class="n"><span class="mini" style="width:60%"></span>1,242</td></tr>
+          <tr class="hot"><td class="d">9.17</td><td class="t">평생 땅만 파던 아이가 대학 가겠다고 말한 이유</td><td class="n"><span class="mini" style="width:61%"></span>1,246</td></tr>
+          <tr class="hot"><td class="d">9.15</td><td class="t">교회 불만 켜지면 모이는 아이들에게 일어난 기적</td><td class="n"><span class="mini" style="width:60%"></span>1,231</td></tr>
+          <tr class="hot"><td class="d">8.29</td><td class="t">하늘이 '열린' 게 아니라 '찢어졌다'고 쓰인 진짜 이유</td><td class="n"><span class="mini" style="width:65%"></span>1,346</td></tr>
+          <tr><td class="d">8.27</td><td class="t">구약 1,000년의 소망을 완성할 '마지막 주자'</td><td class="n"><span class="mini" style="width:43%"></span>891</td></tr>
+          <tr><td class="d">8.25</td><td class="t">죄 없는 예수님이 왜 회개의 세례를 받으셨을까?</td><td class="n"><span class="mini" style="width:23%"></span>468</td></tr>
+          <tr class="hot"><td class="d">8.22</td><td class="t">재난 문자보다 정확한 성경 속 예언의 타이밍</td><td class="n"><span class="mini" style="width:60%"></span>1,243</td></tr>
+          <tr class="hot"><td class="d">8.20</td><td class="t">가나안 정복을 500년 미룬 이유</td><td class="n"><span class="mini" style="width:62%"></span>1,282</td></tr>
+          <tr class="hot"><td class="d">8.18</td><td class="t">구약의 하나님은 무섭고 신약은 사랑의 하나님?</td><td class="n"><span class="mini" style="width:100%"></span>2,055</td></tr>
+          <tr><td class="d">8.14</td><td class="t">가슴에 맺힌 깊은 한 어떻게 풀고 계신가요?</td><td class="n"><span class="mini" style="width:1%"></span>28</td></tr>
+          <tr><td class="d">8.13</td><td class="t">하나님 나라의 브랜드 궁금하지 않으신가요?</td><td class="n"><span class="mini" style="width:1%"></span>27</td></tr>
+          <tr><td class="d">8.12</td><td class="t">성경을 읽다가 누군가의 시선이 느껴진다면?</td><td class="n"><span class="mini" style="width:2%"></span>40</td></tr>
+          <tr><td class="d">8.11</td><td class="t">버림받은 나를 누가 이해할 수 있을까?</td><td class="n"><span class="mini" style="width:1%"></span>30</td></tr>
+          <tr><td class="d">8.10</td><td class="t">하나님의 음성인지 어떻게 알 수 있을까?</td><td class="n"><span class="mini" style="width:2%"></span>34</td></tr>
+          <tr><td class="d">8.7</td><td class="t">무엇을 더 중요하게 생각하고 계신가요?</td><td class="n"><span class="mini" style="width:1%"></span>22</td></tr>
+          <tr><td class="d">8.5</td><td class="t">당신이 즐거워하면 하나님의 축제가 시작돼</td><td class="n"><span class="mini" style="width:1%"></span>21</td></tr>
+          <tr class="hot"><td class="d">8.3</td><td class="t">하나님을 안 좋아하면 모든 선행은 말짱 도루묵</td><td class="n"><span class="mini" style="width:98%"></span>2,014</td></tr>
+          <tr class="hot"><td class="d">8.1</td><td class="t">소중한 내 가족 진짜 연결되셨나요?</td><td class="n"><span class="mini" style="width:78%"></span>1,598</td></tr>
+          <tr class="hot"><td class="d">7.31</td><td class="t">디스커넥트 하나님 앞에 머물기</td><td class="n"><span class="mini" style="width:94%"></span>1,925</td></tr>
+          <tr class="hot"><td class="d">7.29</td><td class="t">하나님이 안 보인다면 먼저 멈추십시오</td><td class="n"><span class="mini" style="width:94%"></span>1,922</td></tr>
+          <tr><td class="d">7.27</td><td class="t">멈춰도 인생은 무너지지 않습니다</td><td class="n"><span class="mini" style="width:24%"></span>485</td></tr>
+          <tr><td class="d">7.24</td><td class="t">내가 믿으면 끝? 하나님이 인정하셔야죠</td><td class="n"><span class="mini" style="width:31%"></span>629</td></tr>
+          <tr class="hot"><td class="d">7.22</td><td class="t">구원받기 쉽다고? 예수님 대답은 다릅니다</td><td class="n"><span class="mini" style="width:99%"></span>2,040</td></tr>
+          <tr class="hot"><td class="d">7.20</td><td class="t">예수 믿고 부자 되자? 그거 다 거짓말입니다</td><td class="n"><span class="mini" style="width:80%"></span>1,638</td></tr>
+          <tr class="hot"><td class="d">7.18</td><td class="t">불교와 기독교의 차이 원효대사 해골물 이야기</td><td class="n"><span class="mini" style="width:93%"></span>1,919</td></tr>
+          <tr><td class="d">7.16</td><td class="t">불안과 초조에 지친 당신 인생을 뒤집는 '이것'</td><td class="n"><span class="mini" style="width:11%"></span>216</td></tr>
+          <tr><td class="d">7.14</td><td class="t">왕의 명령을 선포하는 케리그마</td><td class="n"><span class="mini" style="width:13%"></span>268</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">초록색 줄은 1,000번 넘게 재생된 쇼츠(18편)입니다. 8월 5일~14일에 연달아 올린 7편은 모두 50번 미만으로, 같은 시기 다른 쇼츠와 차이가 컸습니다.</p>
+  </section>
+
+  <footer>
+    <p>10월 말에 구독자 증가와 쇼츠에서 설교로 넘어온 사람 수를 중심으로 다시 보고드리겠습니다.</p>
+    <p>쇼츠 숫자는 YouTube Studio에서 2026년 10월 16일에 확인한 쇼츠별 누적 재생 횟수, 구독자는 같은 날 확인한 기간별 순증가입니다. 최근 영상일수록 앞으로 더 늘어납니다.</p>
+  </footer>
+</main>
+
+</body>
+</html>
